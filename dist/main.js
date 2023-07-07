@@ -13,9 +13,9 @@
 /*!****************!*\
   !*** ./app.js ***!
   \****************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { printTitle } = __webpack_require__(/*! ./util */ \"./util.js\");\n\nconst button = document.querySelector(\"button\");\n\nbutton.addEventListener(\"click\", printTitle);\n\nexports.printTitle = printTitle;\n\n\n//# sourceURL=webpack://js-testing-introduction/./app.js?");
+eval("const { printTitle } = __webpack_require__(/*! ./util */ \"./util.js\");\n\nconst button = document.getElementById(\"btnAddUser\");\n\nbutton.addEventListener(\"click\", printTitle);\n\n\n//# sourceURL=webpack://js-testing-introduction/./app.js?");
 
 /***/ }),
 
@@ -25,7 +25,7 @@ eval("const { printTitle } = __webpack_require__(/*! ./util */ \"./util.js\");\n
   \*****************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("const axios = __webpack_require__(/*! axios */ \"./node_modules/axios/dist/browser/axios.cjs\");\n\nconst fetchData = () => {\n  return axios\n    .get(\"https://jsonplaceholder.typicode.com/todos/1\")\n    .then((response) => {\n      return response.data;\n    });\n};\n\nexports.fetchData = fetchData;\n\n\n//# sourceURL=webpack://js-testing-introduction/./http.js?");
+eval("const axios = __webpack_require__(/*! axios */ \"./node_modules/axios/dist/browser/axios.cjs\");\n\nconst fetchData = () => {\n  console.log('Fetching Data from the server ....');\n  return axios\n    .get(\"https://jsonplaceholder.typicode.com/todos/1\")\n    .then((response) => {\n      return response.data;\n    });\n};\n\nexports.fetchData = fetchData;\n\n\n//# sourceURL=webpack://js-testing-introduction/./http.js?");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ eval("const axios = __webpack_require__(/*! axios */ \"./node_modules/axios/dist
   \*****************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("const { fetchData } = __webpack_require__(/*! ./http */ \"./http.js\");\n\nconst loadTitle = () => {\n  return fetchData().then((extractedData) => {\n    const title = extractedData.title;\n    const transformedTitle = title.toUpperCase();\n    return transformedTitle;\n  });\n};\n\nconst printTitle = () => {\n  loadTitle().then((title) => {\n    console.log(title);\n    return title;\n  });\n};\n\n\nexports.printTitle = printTitle;\n\n\n//# sourceURL=webpack://js-testing-introduction/./util.js?");
+eval("const { fetchData } = __webpack_require__(/*! ./http */ \"./http.js\");\n\nconst loadTitle = () => {\n  return fetchData().then((extractedData) => {\n    const title = extractedData.title;\n    const transformedTitle = title.toUpperCase();\n    return transformedTitle;\n  });\n};\n\nconst printTitle = () => {\n  return loadTitle().then((title) => {\n    console.log(title);\n    return title;\n  });\n};\n\n\nexports.printTitle = printTitle;\nexports.loadTitle = loadTitle;\n\n//# sourceURL=webpack://js-testing-introduction/./util.js?");
 
 /***/ }),
 

@@ -9,7 +9,7 @@ const loadTitle = () => {
 };
 
 const printTitle = () => {
-  loadTitle().then((title) => {
+  return loadTitle().then((title) => {
     console.log(title);
     return title;
   });
@@ -17,3 +17,4 @@ const printTitle = () => {
 
 
 exports.printTitle = printTitle;
+exports.loadTitle = loadTitle;
