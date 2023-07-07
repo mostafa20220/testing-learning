@@ -15,7 +15,7 @@
   \****************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { generateText, createElement, validateInput } = __webpack_require__(/*! ./util */ \"./util.js\");\n\nconst initApp = () => {\n  // Initializes the app, registers the button click listener\n  const newUserButton = document.querySelector('#btnAddUser');\n  newUserButton.addEventListener('click', addUser);\n};\n\nconst addUser = () => {\n  // Fetches the user input, creates a new HTML element based on it\n  // and appends the element to the DOM\n  const newUserNameInput = document.querySelector('input#name');\n  const newUserAgeInput = document.querySelector('input#age');\n\n  if (\n    !validateInput(newUserNameInput.value, true, false) ||\n    !validateInput(newUserAgeInput.value, false, true)\n  ) {\n    return;\n  }\n\n  const userList = document.querySelector('.user-list');\n  const outputText = generateText(\n    newUserNameInput.value,\n    newUserAgeInput.value\n  );\n  const element = createElement('li', outputText, 'user-item');\n  userList.appendChild(element);\n};\n\n// Start the app!\ninitApp();\n\n\n//# sourceURL=webpack://js-testing-introduction/./app.js?");
+eval("const { createElement, checkAndGenerate } = __webpack_require__(/*! ./util */ \"./util.js\");\n\nconst initApp = () => {\n  // Initializes the app, registers the button click listener\n  const newUserButton = document.querySelector('#btnAddUser');\n  newUserButton.addEventListener('click', addUser);\n};\n\nconst addUser = () => {\n  // Fetches the user input, creates a new HTML element based on it\n  // and appends the element to the DOM\n  const newUserNameInput = document.querySelector('input#name');\n  const newUserAgeInput = document.querySelector('input#age');\n\n  const outputText = checkAndGenerate(newUserNameInput.value, newUserAgeInput.value);\n  if (!outputText) {\n    return;\n  }\n\n  const userList = document.querySelector('.user-list');\n  const element = createElement('li', outputText, 'user-item');\n  userList.appendChild(element);\n};\n\n// Start the app!\ninitApp();\n\n\n//# sourceURL=webpack://js-testing-introduction/./app.js?");
 
 /***/ }),
 
@@ -23,9 +23,9 @@ eval("const { generateText, createElement, validateInput } = __webpack_require__
 /*!*****************!*\
   !*** ./util.js ***!
   \*****************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports) {
 
-eval("exports.generateText = (name, age) => {\n  // Returns output text\n  return `${name} (${age} years old)`;\n};\n\nexports.createElement = (type, text, className) => {\n  // Creates a new HTML element and returns it\n  const newElement = document.createElement(type);\n  newElement.classList.add(className);\n  newElement.textContent = text;\n  return newElement;\n};\n\nexports.validateInput = (text, notEmpty, isNumber) => {\n  // Validate user input with two pre-defined rules\n  if (!text) {\n    return false;\n  }\n  if (notEmpty && text.trim().length === 0) {\n    return false;\n  }\n  if (isNumber && +text === NaN) {\n    return false;\n  }\n  return true;\n};\n\n\n//# sourceURL=webpack://js-testing-introduction/./util.js?");
+eval("const generateText = (name, age) => {\n  // Returns output text\n  return `${name} (${age} years old)`;\n};\n\nconst createElement = (type, text, className) => {\n  // Creates a new HTML element and returns it\n  const newElement = document.createElement(type);\n  newElement.classList.add(className);\n  newElement.textContent = text;\n  return newElement;\n};\n\nexports.validateInput = (text, notEmpty, isNumber) => {\n  // Validate user input with two pre-defined rules\n  if (!text) {\n    return false;\n  }\n  if (notEmpty && text.trim().length === 0) {\n    return false;\n  }\n  return !(isNumber && isNaN(+text));\n};\n\nexports.checkAndGenerate = (name, age) => {\n  if (\n    !this.validateInput(name, true, false) ||\n    !this.validateInput(age, false, true)\n  ) {\n    return false;\n  }\n  return this.generateText(name, age);\n}\n\nexports.createElement = createElement;\nexports.generateText = generateText;\n\n//# sourceURL=webpack://js-testing-introduction/./util.js?");
 
 /***/ })
 
@@ -49,7 +49,7 @@ eval("exports.generateText = (name, age) => {\n  // Returns output text\n  retur
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;

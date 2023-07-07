@@ -22,10 +22,9 @@
   "author": "Maximilian Schwarzmüller/ Academind GmbH",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^29.6.1",
+    "puppeteer": "^20.8.0",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
-    "jest": "^29.6.1"
   }
 }
